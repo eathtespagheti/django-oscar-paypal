@@ -118,5 +118,6 @@ TEMPLATES = [
 SITE_ID = 1
 ROOT_URLCONF = 'tests.urls'
 
-STATIC_URL = '/'
+STATIC_URL = '/static'
+MEDIA_URL = '/media'
 STATIC_ROOT = '/static/'
