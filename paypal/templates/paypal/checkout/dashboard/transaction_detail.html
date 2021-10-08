@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "PayPal Express Checkout transaction" %} {{ txn.order_id }} | {{ block.super }}
+    {% trans "PayPal Checkout transaction" %} {{ txn.order_id }} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -14,7 +14,7 @@
             </li>
             <li class="breadcrumb-item">PayPal</li>
             <li class="breadcrumb-item">
-                <a href="{% url 'express_checkout_dashboard:paypal-transaction-list' %}">{% trans "Express Checkout transactions" %}</a>
+                <a href="{% url 'express_checkout_dashboard:paypal-transaction-list' %}">{% trans "Checkout transactions" %}</a>
             </li>
             <li class="breadcrumb-item active">{{ txn.order_id }}</li>
         </ol>

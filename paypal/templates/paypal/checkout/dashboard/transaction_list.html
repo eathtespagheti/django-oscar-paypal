@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "PayPal Express Checkout transactions" %} | {{ block.super }}
+    {% trans "PayPal Checkout transactions" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -13,13 +13,13 @@
                 <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
             </li>
             <li class="breadcrumb-item">PayPal</li>
-            <li class="breadcrumb-item active">{% trans "Express Checkout transactions" %}</li>
+            <li class="breadcrumb-item active">{% trans "Checkout transactions" %}</li>
         </ol>
     </nav>
 {% endblock %}
 
 {% block headertext %}
-    {% trans "PayPal Express Checkout transactions" %}
+    {% trans "PayPal Checkout transactions" %}
 {% endblock %}
 
 {% block dashboard_content %}

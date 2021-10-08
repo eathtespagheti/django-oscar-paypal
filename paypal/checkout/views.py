@@ -37,7 +37,7 @@ logger = logging.getLogger('paypal.express')
 class PaypalRedirectView(CheckoutSessionMixin, RedirectView):
     """
     Initiate the transaction with Paypal and redirect the user
-    to PayPal's Express Checkout to perform the transaction.
+    to PayPal's Checkout to perform the transaction.
     """
     permanent = False
 
