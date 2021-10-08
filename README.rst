@@ -57,6 +57,16 @@ Tests
 Changelog
 ---------
 
+2.1.0 (released December 20th, 2019)
+------------------------------------
+* Add support for Oscar 3.1 and Django 3.2. `#255`_ `#271`_
+* Rename Paypal Checkout Express to Paypal Checkout `#271`_
+* Update documentation `#216`_
+
+.. _`#216`: https://github.com/django-oscar/django-oscar-paypal/issues/216
+.. _`#255`: https://github.com/django-oscar/django-oscar-paypal/issues/255
+.. _`#271`: https://github.com/django-oscar/django-oscar-paypal/issues/271
+
 2.0.0 (released December 20th, 2019)
 ------------------------------------
 * Add support for Oscar 2.0 and Django 2.2.
