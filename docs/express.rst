@@ -2,7 +2,7 @@
 Express checkout
 ================
 
-`PayPal Express` is an API for integrating PayPal payments into an ecommerce
+`PayPal Express`_ is an API for integrating PayPal payments into an ecommerce
 site.  A typical implementation involves redirecting the user to PayPal's site
 where they enter their shipping and billing information before arriving back on
 the merchant site to confirm the order.  It can also be used purely for payment,
@@ -13,8 +13,8 @@ integrates with Oscar's dashboard.
 
 See the `PDF documentation`_ for the gory details of PayPal Express.
 
-.. _`PayPal Express`: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_additional-payment-ref-impl1
-.. _`PDF documentation`: https://www.paypalobjects.com/webstatic/en_US/developer/docs/pdf/pp_expresscheckout_integrationguide.pdf
+.. _PayPal Express: https://www.paypal.com/uk/cgi-bin/webscr?cmd=_additional-payment-ref-impl1
+.. _PDF documentation: https://www.paypalobjects.com/webstatic/en_US/developer/docs/pdf/pp_expresscheckout_integrationguide.pdf
 
 ---------------
 Getting started
