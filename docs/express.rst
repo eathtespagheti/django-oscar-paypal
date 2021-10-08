@@ -37,16 +37,25 @@ follows::
 
     from django.contrib import admin
     from django.urls import include, path
+    from django.apps import apps
+    from django.conf.urls.i18n import i18n_patterns
 
-    from oscar.app import shop
-    
+    admin.autodiscover()
+
     urlpatterns = [
         path('admin/', admin.site.urls),
-        path('checkout/paypal/', include('paypal.express.urls')),
-        # Optional
-        path('dashboard/paypal/express/', apps.get_app_config("express_dashboard").urls),
-        path('', shop.urls),
+        path('i18n/', include('django.conf.urls.i18n')),
     ]
+    urlpatterns += i18n_patterns(
+        # PayPal Express integration...
+        path('checkout/paypal/', include('paypal.express_checkout.urls')),
+        # Optional
+        # Dashboard views for Express
+        path('dashboard/paypal/express/', apps.get_app_config("express_dashboard").urls),
+        # Dashboard views for Express Checkout
+        path('dashboard/paypal/express-checkout/', apps.get_app_config('express_checkout_dashboard').urls),
+        path('', include(apps.get_app_config('oscar').urls[0])),
+    )
 
 If you are using the dashboard views, extend the dashboard navigation to include
 the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py:: 
@@ -77,11 +86,13 @@ links to PayPal.  This can be done by creating a new template
     {% block formactions %}
     <div class="form-actions">
         {% if anon_checkout_allowed or request.user.is_authenticated %}
-            <a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+            {% if basket.total_excl_tax > 0 %}
+                <a href="{% url 'paypal-redirect' %}"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+            {% endif %}
         {% endif %}
         <a href="{% url 'checkout:index' %}" class="pull-right btn btn-large btn-primary">{% trans "Proceed to checkout" %}</a>
     </div>
-    {% endblock %}
+    {% endblock formactions %}
 
 Note that we are extending the ``basket/partials/basket_content.html`` template
 from oscar and overriding the ``formactions`` block.  For this trick to work,
