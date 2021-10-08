@@ -297,8 +297,8 @@ OSCAR_DASHBOARD_NAVIGATION.append(
                 'url_name': 'express_dashboard:paypal-express-list',
             },
             {
-                'label': _('Express Checkout transactions'),
-                'url_name': 'express_checkout_dashboard:paypal-transaction-list',
+                'label': _('Checkout transactions'),
+                'url_name': 'checkout_dashboard:paypal-transaction-list',
             },
         ]
     })

@@ -3,7 +3,7 @@ Payflow Pro
 ===========
 
 Payflow Pro is a server-to-server payment option for businesses who have a
-merchant account.  Unlike Express Checkout, it doesn't require redirecting the
+merchant account.  Unlike Checkout, it doesn't require redirecting the
 user to PayPal's site and allows a customer to use a normal bankcard instead of
 their PayPal account.  `Read more details on the PayPal site`_.
 

@@ -58,8 +58,8 @@ follows:
         path('dashboard/paypal/payflow/', apps.get_app_config("payflow_dashboard").urls),
         # Dashboard views for Express
         path('dashboard/paypal/express/', apps.get_app_config("express_dashboard").urls),
-        # Dashboard views for Express Checkout
-        path('dashboard/paypal/express-checkout/', apps.get_app_config('express_checkout_dashboard').urls),
+        # Dashboard views for Checkout
+        path('dashboard/paypal/checkout/', apps.get_app_config('checkout_dashboard').urls),
         path('', include(apps.get_app_config('oscar').urls[0])),
     )
 
@@ -86,8 +86,8 @@ the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py
                     'url_name': 'express_dashboard:paypal-express-list',
                 },
                 {
-                    'label': _('Express Checkout transactions'),
-                    'url_name': 'express_checkout_dashboard:paypal-transaction-list',
+                    'label': _('Checkout transactions'),
+                    'url_name': 'checkout_dashboard:paypal-transaction-list',
                 },
             ]
         })
@@ -125,7 +125,7 @@ Settings
 --------
 
 There's a smorgasboard of options that can be used, as there's many ways to
-customised the Express Checkout experience.  Most of these are handled by simple
+customised the Checkout experience.  Most of these are handled by simple
 settings.
 
 * ``PAYPAL_SANDBOX_MODE`` - whether to use PayPal's sandbox.  Defaults to ``True``.

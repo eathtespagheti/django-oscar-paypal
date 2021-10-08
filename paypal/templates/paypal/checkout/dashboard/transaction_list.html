@@ -41,7 +41,7 @@
             <tbody>
                 {% for txn in transactions %}
                     <tr>
-                        <td><a href="{% url 'express_checkout_dashboard:paypal-transaction-detail' txn.id %}">{{ txn.order_id }}</a></td>
+                        <td><a href="{% url 'checkout_dashboard:paypal-transaction-detail' txn.id %}">{{ txn.order_id }}</a></td>
                         <td>{{ txn.capture_id }}</td>
                         <td>{{ txn.refund_id }}</td>
                         <td>{{ txn.authorization_id }}</td>

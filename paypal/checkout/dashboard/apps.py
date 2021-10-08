@@ -3,11 +3,11 @@ from django.utils.translation import gettext_lazy as _
 from oscar.core.application import OscarDashboardConfig
 
 
-class ExpressCheckoutDashboardApplication(OscarDashboardConfig):
+class CheckoutDashboardApplication(OscarDashboardConfig):
     name = 'paypal.checkout.dashboard'
-    label = 'express_checkout_dashboard'
-    namespace = 'express_checkout_dashboard'
-    verbose_name = _('Express Checkout Dashboard')
+    label = 'checkout_dashboard'
+    namespace = 'checkout_dashboard'
+    verbose_name = _('Checkout Dashboard')
 
     default_permissions = ["is_staff"]
 
