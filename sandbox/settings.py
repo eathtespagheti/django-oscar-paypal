@@ -284,7 +284,7 @@ OSCAR_SHOP_TAGLINE = 'PayPal'
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
         'label': _('PayPal'),
-        'icon': 'icon-globe',
+        'icon': 'fas fa-globe',
         'children': [
             {
                 'label': _('PayFlow transactions'),

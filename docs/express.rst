@@ -75,7 +75,7 @@ the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py
     OSCAR_DASHBOARD_NAVIGATION.append(
         {
             'label': _('PayPal'),
-            'icon': 'icon-globe',
+            'icon': 'fas fa-globe',
             'children': [
                 {
                     'label': _('PayFlow transactions'),
