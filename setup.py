@@ -8,7 +8,7 @@ setup(
     version=VERSION,
     url='https://github.com/django-oscar/django-oscar-paypal',
     description=(
-        "Integration with PayPal Express, PayPal Payflow Pro and Adaptive "
+        "Integration with PayPal Checkout, PayPal Payflow Pro and Adaptive "
         "Payments for django-oscar"),
     long_description=open('README.rst').read(),
     keywords="Payment, PayPal, Oscar",
@@ -17,13 +17,13 @@ setup(
     packages=find_packages(exclude=['sandbox*', 'tests*']),
     include_package_data=True,
     install_requires=[
-        'django>=2.2,<3.2',
+        'django>=2.2,<=3.2',
         'paypal-checkout-serversdk>=1.0.1',
         'requests>=2.26.0',
         'django-localflavor'
     ],
     extras_require={
-        'oscar': ['django-oscar>=2.0,<3.0']
+        'oscar': ['django-oscar>=2.0,<=3.1']
     },
     # See http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
