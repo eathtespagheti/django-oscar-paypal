@@ -93,8 +93,7 @@ the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py
         })
 
 Finally, you need to modify oscar's basket template to include the button that
-links to PayPal.  This can be done by creating a new template
-``templates/basket/partials/basket_content.html`` with content:
+links to PayPal.  This can be done by creating a new template with content:
 
 .. code-block:: django-html
 
@@ -114,16 +113,8 @@ links to PayPal.  This can be done by creating a new template
 
 Note that we are extending the ``basket/partials/basket_content.html`` template
 from oscar and overriding the ``formactions`` block.  For this trick to work,
-you need to ensure that you have ``OSCAR_MAIN_TEMPLATE_DIR`` in your
-``TEMPLATE_DIRS`` after your local templates setting
-
-.. code-block:: python
-
-    from oscar import OSCAR_MAIN_TEMPLATE_DIR
-    TEMPLATE_DIRS = (
-        location('templates'),
-        OSCAR_MAIN_TEMPLATE_DIR,
-    )
+you need to ensure that you are overriding that same template from one of your apps,
+by putting your ``basket_content.html`` template in ``yourapp/templates/oscar/basket/partials/basket_content.html``
 
 If anything is unclear or not workin as expected then review how the 'sandbox`
 installation is set-up.  This is a working Oscar install that uses PayPal
