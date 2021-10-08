@@ -4,7 +4,7 @@ from oscar.core.application import OscarDashboardConfig
 
 
 class ExpressCheckoutDashboardApplication(OscarDashboardConfig):
-    name = 'paypal.express_checkout.dashboard'
+    name = 'paypal.checkout.dashboard'
     label = 'express_checkout_dashboard'
     namespace = 'express_checkout_dashboard'
     verbose_name = _('Express Checkout Dashboard')

@@ -1,6 +1,6 @@
 from django.views import generic
 
-from paypal.express_checkout import models
+from paypal.checkout import models
 
 
 class TransactionListView(generic.ListView):

@@ -15,8 +15,8 @@ from paypalhttp.http_error import HttpError
 
 from paypal.express.exceptions import (
     EmptyBasketException, InvalidBasket, MissingShippingAddressException, MissingShippingMethodException)
-from paypal.express_checkout.facade import capture_order, fetch_transaction_details, get_paypal_url
-from paypal.express_checkout.gateway import buyer_pays_on_paypal
+from paypal.checkout.facade import capture_order, fetch_transaction_details, get_paypal_url
+from paypal.checkout.gateway import buyer_pays_on_paypal
 
 # Load views dynamically
 PaymentDetailsView = get_class('checkout.views', 'PaymentDetailsView')

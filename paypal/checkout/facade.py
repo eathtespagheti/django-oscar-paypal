@@ -6,8 +6,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from paypal.express_checkout.gateway import PaymentProcessor, buyer_pays_on_paypal
-from paypal.express_checkout.models import ExpressCheckoutTransaction as Transaction
+from paypal.checkout.gateway import PaymentProcessor, buyer_pays_on_paypal
+from paypal.checkout.models import ExpressCheckoutTransaction as Transaction
 
 
 def get_intent():

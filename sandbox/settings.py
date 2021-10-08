@@ -226,7 +226,7 @@ INSTALLED_APPS = [
     'apps.shipping.apps.ShippingConfig',
     'apps.checkout.apps.CheckoutConfig',
     'paypal.express.dashboard.apps.ExpressDashboardApplication',
-    'paypal.express_checkout.dashboard.apps.ExpressCheckoutDashboardApplication',
+    'paypal.checkout.dashboard.apps.ExpressCheckoutDashboardApplication',
     'paypal.payflow.dashboard.apps.PayFlowDashboardApplication',
 
     # oscar

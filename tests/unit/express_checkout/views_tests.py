@@ -11,7 +11,7 @@ from oscar.test.factories import create_product
 from paypalhttp.http_error import HttpError
 from paypalhttp.http_response import construct_object
 
-from paypal.express_checkout.models import ExpressCheckoutTransaction
+from paypal.checkout.models import ExpressCheckoutTransaction
 from tests.shipping.methods import SecondClassRecorded
 
 from .mocked_data import (
@@ -39,7 +39,7 @@ class EdgeCaseTests(BasketMixin, TestCase):
         assert reverse('basket:summary') == response.url
 
     def test_missing_shipping_address(self):
-        from paypal.express_checkout.views import PaypalRedirectView
+        from paypal.checkout.views import PaypalRedirectView
         with patch.object(PaypalRedirectView, 'as_payment_method') as as_payment_method:
             as_payment_method.return_value = True
 
@@ -48,7 +48,7 @@ class EdgeCaseTests(BasketMixin, TestCase):
             assert reverse('checkout:shipping-address') == response.url
 
     def test_missing_shipping_method(self):
-        from paypal.express_checkout.views import PaypalRedirectView
+        from paypal.checkout.views import PaypalRedirectView
 
         with patch.object(PaypalRedirectView, 'as_payment_method') as as_payment_method:
             with patch.object(PaypalRedirectView, 'get_shipping_address') as get_shipping_address:
@@ -72,7 +72,7 @@ class RedirectToPayPalTests(BasketMixin, TestCase):
     def test_nonempty_basket_redirects_to_paypal(self):
         order_approve_url = 'https://www.sandbox.paypal.com/checkoutnow?token=4MW805572N795704B'
 
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.create_order') as create_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.create_order') as create_order:
             create_order.return_value = construct_object('Result', CREATE_ORDER_RESULT_DATA_MINIMAL)
 
             self.add_product_to_basket()
@@ -80,7 +80,7 @@ class RedirectToPayPalTests(BasketMixin, TestCase):
             assert response.url == order_approve_url
 
     def test_paypal_error_redirects_to_basket(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.create_order') as create_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.create_order') as create_order:
             create_order.side_effect = HttpError(message='Error message', status_code=404, headers=None)
 
             self.add_product_to_basket()
@@ -117,7 +117,7 @@ class PreviewOrderTests(BasketMixin, TestCase):
         )
 
     def test_context(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
             get_order.return_value = construct_object('Result', GET_ORDER_RESULT_DATA)
 
             response = self.client.get(self.url_with_query_string, follow=True)
@@ -132,7 +132,7 @@ class PreviewOrderTests(BasketMixin, TestCase):
                 assert k in context, f'{k} not in context'
 
     def test_paypal_error_redirects_to_basket(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
             get_order.side_effect = HttpError(message='Error message', status_code=404, headers=None)
 
             response = self.client.get(self.url_with_query_string)
@@ -175,8 +175,8 @@ class SubmitOrderMixin(BasketMixin):
 class SubmitOrderTests(SubmitOrderMixin, TestCase):
 
     def test_created_order(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                 get_order.return_value = construct_object('Result', GET_ORDER_RESULT_DATA)
                 capture_order.return_value = construct_object('Result', CAPTURE_ORDER_RESULT_DATA_MINIMAL)
@@ -207,8 +207,8 @@ class SubmitOrderTests(SubmitOrderMixin, TestCase):
             lines.product.product_class.requires_shipping = False
             lines.product.product_class.save()
 
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                 get_order.return_value = construct_object('Result', GET_ORDER_RESULT_NO_SHIPPING_DATA)
                 capture_order.return_value = construct_object('Result', CAPTURE_ORDER_RESULT_NO_SHIPPING_DATA_MINIMAL)
@@ -230,8 +230,8 @@ class SubmitOrderTests(SubmitOrderMixin, TestCase):
                 assert self.txn.address == ''
 
     def test_paypal_error(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                 get_order.return_value = construct_object('Result', GET_ORDER_RESULT_DATA)
                 capture_order.side_effect = HttpError(message='Error message', status_code=404, headers=None)
@@ -246,8 +246,8 @@ class SubmitOrderTests(SubmitOrderMixin, TestCase):
         query_string = urlencode({'PayerID': '0000000000001', 'token': '4MW805572N795704B'})
         url_with_query_string = f'{url}?{query_string}'
 
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                 get_order.return_value = construct_object('Result', GET_ORDER_RESULT_DATA)
                 capture_order.return_value = construct_object('Result', CAPTURE_ORDER_RESULT_DATA_MINIMAL)
@@ -283,8 +283,8 @@ class SubmitOrderTests(SubmitOrderMixin, TestCase):
         query_string = urlencode({'PayerID': '0000000000001', 'token': '4MW805572N795704B'})
         url_with_query_string = f'{url}?{query_string}'
 
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                 get_order.return_value = construct_object('Result', GET_ORDER_RESULT_NO_SHIPPING_DATA)
                 capture_order.return_value = construct_object('Result', CAPTURE_ORDER_RESULT_NO_SHIPPING_DATA_MINIMAL)
@@ -311,9 +311,9 @@ class SubmitOrderWithAuthorizationTests(SubmitOrderMixin, TestCase):
 
     @override_settings(PAYPAL_ORDER_INTENT=ExpressCheckoutTransaction.AUTHORIZE)
     def test_created_order(self):
-        with patch('paypal.express_checkout.gateway.PaymentProcessor.get_order') as get_order:
-            with patch('paypal.express_checkout.gateway.PaymentProcessor.authorize_order') as authorize_order:
-                with patch('paypal.express_checkout.gateway.PaymentProcessor.capture_order') as capture_order:
+        with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
+            with patch('paypal.checkout.gateway.PaymentProcessor.authorize_order') as authorize_order:
+                with patch('paypal.checkout.gateway.PaymentProcessor.capture_order') as capture_order:
 
                     get_order.return_value = construct_object('Result', GET_ORDER_AUTHORIZE_RESULT_DATA)
                     authorize_order.return_value = construct_object('Result', AUTHORIZE_ORDER_RESULT_DATA_MINIMAL)

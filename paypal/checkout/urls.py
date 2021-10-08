@@ -1,7 +1,7 @@
 from django.urls import path
 
-from paypal.express_checkout import views
-from paypal.express_checkout.gateway import buyer_pays_on_paypal
+from paypal.checkout import views
+from paypal.checkout.gateway import buyer_pays_on_paypal
 
 base_patterns = [
     # Views for normal flow that starts on the basket page
