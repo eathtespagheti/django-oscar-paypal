@@ -54,6 +54,8 @@ follows:
         # PayPal Express integration...
         path('checkout/paypal/', include('paypal.express_checkout.urls')),
         # Optional
+        # Dashboard views for Payflow Pro
+        path('dashboard/paypal/payflow/', apps.get_app_config("payflow_dashboard").urls),
         # Dashboard views for Express
         path('dashboard/paypal/express/', apps.get_app_config("express_dashboard").urls),
         # Dashboard views for Express Checkout
@@ -76,8 +78,16 @@ the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py
             'icon': 'icon-globe',
             'children': [
                 {
+                    'label': _('PayFlow transactions'),
+                    'url_name': 'payflow_dashboard:paypal-payflow-list',
+                },
+                {
                     'label': _('Express transactions'),
                     'url_name': 'express_dashboard:paypal-express-list',
+                },
+                {
+                    'label': _('Express Checkout transactions'),
+                    'url_name': 'express_checkout_dashboard:paypal-transaction-list',
                 },
             ]
         })
