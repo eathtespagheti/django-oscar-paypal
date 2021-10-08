@@ -11,7 +11,7 @@ from oscar.test.factories import create_product
 from paypalhttp.http_error import HttpError
 from paypalhttp.http_response import construct_object
 
-from paypal.checkout.models import ExpressCheckoutTransaction
+from paypal.checkout.models import CheckoutTransaction
 from tests.shipping.methods import SecondClassRecorded
 
 from .mocked_data import (
@@ -108,12 +108,12 @@ class PreviewOrderTests(BasketMixin, TestCase):
         session.save()
 
         # Before preview order must be created
-        ExpressCheckoutTransaction.objects.create(
+        CheckoutTransaction.objects.create(
             order_id='4MW805572N795704B',
             amount=D('19.99'),
             currency=basket.currency,
-            status=ExpressCheckoutTransaction.CREATED,
-            intent=ExpressCheckoutTransaction.CAPTURE,
+            status=CheckoutTransaction.CREATED,
+            intent=CheckoutTransaction.CAPTURE,
         )
 
     def test_context(self):
@@ -141,7 +141,7 @@ class PreviewOrderTests(BasketMixin, TestCase):
 
 class SubmitOrderMixin(BasketMixin):
     fixtures = ['countries.json']
-    intent = ExpressCheckoutTransaction.CAPTURE
+    intent = CheckoutTransaction.CAPTURE
 
     def setUp(self):
         super().setUp()
@@ -163,11 +163,11 @@ class SubmitOrderMixin(BasketMixin):
         session.save()
 
         # Before getting order must be created
-        self.txn = ExpressCheckoutTransaction.objects.create(
+        self.txn = CheckoutTransaction.objects.create(
             order_id='4MW805572N795704B',
             amount=D('19.99'),
             currency=self.basket.currency,
-            status=ExpressCheckoutTransaction.CREATED,
+            status=CheckoutTransaction.CREATED,
             intent=self.intent,
         )
 
@@ -307,9 +307,9 @@ class SubmitOrderTests(SubmitOrderMixin, TestCase):
 
 
 class SubmitOrderWithAuthorizationTests(SubmitOrderMixin, TestCase):
-    intent = ExpressCheckoutTransaction.AUTHORIZE
+    intent = CheckoutTransaction.AUTHORIZE
 
-    @override_settings(PAYPAL_ORDER_INTENT=ExpressCheckoutTransaction.AUTHORIZE)
+    @override_settings(PAYPAL_ORDER_INTENT=CheckoutTransaction.AUTHORIZE)
     def test_created_order(self):
         with patch('paypal.checkout.gateway.PaymentProcessor.get_order') as get_order:
             with patch('paypal.checkout.gateway.PaymentProcessor.authorize_order') as authorize_order:

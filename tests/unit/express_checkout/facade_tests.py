@@ -5,7 +5,7 @@ from django.test import TestCase
 from paypalhttp.http_response import construct_object
 
 from paypal.checkout.facade import refund_order, void_authorization
-from paypal.checkout.models import ExpressCheckoutTransaction
+from paypal.checkout.models import CheckoutTransaction
 
 from .mocked_data import REFUND_ORDER_DATA_MINIMAL
 
@@ -16,13 +16,13 @@ class FacadeTests(TestCase):
         super().setUp()
 
         # Before getting order must be created
-        self.txn = ExpressCheckoutTransaction.objects.create(
+        self.txn = CheckoutTransaction.objects.create(
             order_id='4MW805572N795704B',
             capture_id='45315376249711632',
             amount=D('0.99'),
             currency='GBP',
-            status=ExpressCheckoutTransaction.CREATED,
-            intent=ExpressCheckoutTransaction.CAPTURE,
+            status=CheckoutTransaction.CREATED,
+            intent=CheckoutTransaction.CAPTURE,
         )
 
     def test_refund_order(self):
@@ -46,6 +46,6 @@ class FacadeTests(TestCase):
             void_authorization('4MW805572N795704B')
 
             self.txn.refresh_from_db()
-            assert self.txn.status == ExpressCheckoutTransaction.VOIDED
+            assert self.txn.status == CheckoutTransaction.VOIDED
 
             mocked_void_order.assert_called_once_with('3PW0120338716941H')

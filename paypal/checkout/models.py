@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class ExpressCheckoutTransaction(models.Model):
+class CheckoutTransaction(models.Model):
     """
     Dedicated to store transactions for Express Checkout SDK that are
     related to the same Oscar's order.
