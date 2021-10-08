@@ -31,7 +31,9 @@ You'll need to create an Payflow account with PayPal in order to get a:
 * Partner ID (normally "PayPal" when you register directly with PayPal)
 
 In practice, you only really need a vendor ID and a password.  Add settings to
-your project with your credentials::
+your project with your credentials:
+
+.. code-block:: python
 
     # settings.py
     ...

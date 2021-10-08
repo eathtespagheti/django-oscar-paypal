@@ -27,15 +27,21 @@ Installation
 Whichever payment option you wish to use, the package installation instructions
 are the same.
 
-Install::
+Install:
+
+.. code-block:: sh
 
     pip install django-oscar-paypal
 
-By default, this won't install Oscar as well. To install Oscar, run::
+By default, this won't install Oscar as well. To install Oscar, run:
+
+.. code-block:: sh
 
     pip install "django-oscar-paypal[oscar]"
 
-Finally, add ``paypal`` to your ``INSTALLED_APPS``, and run::
+Finally, add ``paypal`` to your ``INSTALLED_APPS``, and run:
+
+.. code-block:: sh
 
     python manage.py migrate
 

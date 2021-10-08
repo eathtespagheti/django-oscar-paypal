@@ -26,14 +26,18 @@ seller.  Once the seller is created, you will have access to a
 username, password and 'signature' which are used to authenticate API
 requests.
 
-Add the following settings using the details from your sandbox seller account::
+Add the following settings using the details from your sandbox seller account:
+
+.. code-block:: python
 
     PAYPAL_API_USERNAME = 'test_xxxx.gmail.com'
     PAYPAL_API_PASSWORD = '123456789'
     PAYPAL_API_SIGNATURE = '...'
 
 Next, you need to add the PayPal URLs to your URL config.  This can be done as
-follows::
+follows:
+
+.. code-block:: python
 
     from django.contrib import admin
     from django.urls import include, path
@@ -58,7 +62,9 @@ follows::
     )
 
 If you are using the dashboard views, extend the dashboard navigation to include
-the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py:: 
+the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py:
+
+.. code-block:: python 
     
     INSTALLED_APPS += ['paypal.express.dashboard.apps.ExpressDashboardApplication']
     
@@ -78,7 +84,9 @@ the appropriate links and add the dashboard app to INSTALLED_APPS in settings.py
 
 Finally, you need to modify oscar's basket template to include the button that
 links to PayPal.  This can be done by creating a new template
-``templates/basket/partials/basket_content.html`` with content::
+``templates/basket/partials/basket_content.html`` with content:
+
+.. code-block:: django-html
 
     {% extends 'oscar/basket/partials/basket_content.html' %}
     {% load i18n %}
@@ -97,7 +105,9 @@ links to PayPal.  This can be done by creating a new template
 Note that we are extending the ``basket/partials/basket_content.html`` template
 from oscar and overriding the ``formactions`` block.  For this trick to work,
 you need to ensure that you have ``OSCAR_MAIN_TEMPLATE_DIR`` in your
-``TEMPLATE_DIRS`` after your local templates setting::
+``TEMPLATE_DIRS`` after your local templates setting
+
+.. code-block:: python
 
     from oscar import OSCAR_MAIN_TEMPLATE_DIR
     TEMPLATE_DIRS = (
@@ -147,7 +157,9 @@ profile.
 
 You can also override the raw paypal params by defining a new
 paypal.express.views.RedirectView and define the ``_get_paypal_params``
-method::
+method:
+
+.. code-block:: python
 
     from paypal.express.views import RedirectView as OscarPaypalRedirectView
 
